@@ -9,10 +9,11 @@ const string BMW = "BMW 650 GS";
 const string KAWASAKI = "Kawasaki ZZR 1400";
 const string FILEPATH = "c:\\temp\\";
 
+//Konstruktor
 Model::Model(){
 	Suzuki suzuki(1, SUZUKI,2,(int)farbe::guen,2019,0);
 	Honda honda(2, HONDA,2,(int)farbe::gelb,1980,0);
-	Bmw bmw(3, BMW,2,(int)farbe::schwatz,2015,0);
+	Bmw bmw(3, BMW,2,(int)farbe::schwartz,2015,0);
 	Kawasaki kawasaki(4, KAWASAKI,2,(int)farbe::gelb,1975,0);
 
 	Fahrzeug *fzGSuzuki =(Fahrzeug *) &suzuki;
@@ -27,42 +28,81 @@ Model::Model(){
 	Fahrzeug *fzGkawasaki =(Fahrzeug *) &kawasaki;
 	modelFahrzeug.push_back(*fzGkawasaki);
 }
-
+//Methode übersetzt Zahl in Farbe
+string Model::integerToStringFarbe(int color){
+	switch (color){
+		case farbe::blau:
+			return "Blau";
+			break;
+		case farbe::gelb:
+			return "Gelb";
+			break;
+		case farbe::guen:
+			return "Gruen";
+			break;
+		case farbe::lila:
+			return "Lila";
+			break;
+		case farbe::rot:
+			return "Rot";
+			break;
+		case farbe::schwartz:
+			return "Schwarz";
+			break;
+		case farbe::weiss:
+			return "Weiss";
+			break;
+		default:
+			return "";
+	}
+}
+//Methode übersetzt Zahl in Status
+string Model::integerToStringStatus(int status){
+	switch(status){
+		case translateStatus::frei:
+			return "frei";
+		case translateStatus::reserviert:
+			return "reserviert";
+		default:
+			return "";
+	}
+}
+//Methode zum setzen der Line
 void Model::setLine(){
 	this->line = 0;
 }
-
+//Methode gibt mir das ModelFahrzeug zurück
 vector <Fahrzeug> Model::getModelFahrzeug(){
 	return this->modelFahrzeug;
 }
-
+//Methode gibt mir das ModelKunde zurück
 vector <Kunde> Model::getModelKunde(){
 	return this->modelKunde;
 }
-
+//Methode setzt den Status von Fahrzeug auf den Wert 1
 void Model::setStatusVonFahrzeugAufEins(int id, int kdid){
 	//setze Status auf 1 und somit nicht mehr verfügbar
 	this->modelFahrzeug[id].setStatus(1);
 	//besetzt durch den Kunden!
 	this->modelFahrzeug[id].setKundenID(kdid);
 }
-
+//Pandong Methode zu oben
 void Model::setStatusVonFahrzeugAufNull(int id){
 	this->modelFahrzeug[id].setStatus(0);
 }
-
+//Methode setzt KundenID auf 1
 void  Model::setKundenIDFahrzeugAufNull(int id){
 	this->modelFahrzeug[id].setKundenID(0);
 }
-
+//Methode gibt mir das Model an der Stelle der ID retour
 Kunde Model::getKundeFromModel(int id){
 	return this->modelKunde[id];
 }
-
+//Methode pushed mir den neuen Kunden ins Model
 void Model::pushmodelKunde(Kunde &ku){
 	this->modelKunde.push_back(ku);
 }
-
+//Methode pushed mir das Fahrzeug ins Model
 void Model::pushmodelFahrzeug(Fahrzeug &fz){
 	this->modelFahrzeug.push_back(fz);
 }
@@ -92,7 +132,7 @@ void Model::tableHeader()
 	cout << "\n";
 	cout << "\n";
 }
-
+//Methode Footer 
 void Model::tableFooter(int _line){
 	for (int i = 0; i < 80; i++) {
 		gotoxy(i, this->line+3);
@@ -104,7 +144,7 @@ void Model::tableFooter(int _line){
 }
 
 
-
+//Methode für die Anzeige
 void Model::displayFahrzeuge(){
 
 	cout.setf(ios::fixed | ios::showpoint);
@@ -122,11 +162,11 @@ void Model::displayFahrzeuge(){
 			gotoxy(35, line + i);
 			cout << modelFahrzeug[i].getanzahlRaeder();
 			gotoxy(40, line + i);
-			cout << modelFahrzeug[i].getfarbe();
+			cout << integerToStringFarbe(modelFahrzeug[i].getfarbe());
 			gotoxy(50, line + i);
 			cout << modelFahrzeug[i].getbj();
 			gotoxy(60, line + i);
-			cout << modelFahrzeug[i].getStatus();
+			cout << integerToStringStatus(modelFahrzeug[i].getStatus());
 			
 			this->line +=1;
 		}
@@ -170,7 +210,7 @@ void Model::tableHeaderKunde()
 	}
 	
 }
-
+//Methode für die Ausgabe des Footers Kunde
 void Model::tablefooterKunde(int _line){
 	//for (int i = 0; i < 120; i++) {
 	//	gotoxy(i, this->line+2);
@@ -185,7 +225,7 @@ void Model::tablefooterKunde(int _line){
 	cout << "\n";
 	cout << "\n";
 }
-
+//Methode für die Ausgabe des Kunden
 void Model::displayKunden(){
 
 	cout.setf(ios::fixed | ios::showpoint);
@@ -259,7 +299,7 @@ void Model::tableHeaderReserviert()
 	cout << "\n";
 	
 }
-
+//Methode für die Footerausgabe reserviert
 void Model::tableFooterReserviert(int _line){
 	for (int i = 0; i < 100; i++) {
 		gotoxy(i, this->line+3);
@@ -269,7 +309,7 @@ void Model::tableFooterReserviert(int _line){
 	cout << "\n";
 	
 }
-
+//Methode für die Ausgabe reserviert
 void Model::tableDisplayReserviert(int i){
 
 	cout.setf(ios::fixed | ios::showpoint);
@@ -286,11 +326,11 @@ void Model::tableDisplayReserviert(int i){
 			gotoxy(35, line + i);
 			cout << modelFahrzeug[i].getanzahlRaeder();
 			gotoxy(40, line + i);
-			cout << modelFahrzeug[i].getfarbe();
+			cout << integerToStringFarbe(modelFahrzeug[i].getfarbe());
 			gotoxy(50, line + i);
 			cout << modelFahrzeug[i].getbj();
 			gotoxy(60, line + i);
-			cout << modelFahrzeug[i].getStatus();
+			cout << integerToStringStatus(modelFahrzeug[i].getStatus());
 			gotoxy(70, line + i);
 			cout << modelKunde[modelFahrzeug[i].getKundenIDFromFahrzeuge()-1].getVorname();
 			gotoxy(85, line + i);
@@ -312,7 +352,7 @@ bool Model::is_file_exist(const char *fileName){
     std::ifstream infile(fileName);
     return infile.good();
 }
-
+//Methode für die Ausgabe vom FileHeader
 void Model::ausgabeFileHeader(){
 	if (!is_file_exist("c:\\temp1\\")){
 		_mkdir("c:\\temp1\\");
@@ -359,7 +399,7 @@ void Model::ausgabeFileHeader(){
 	}
 
 }
-
+//Methode für die Ausgabe des Files
 void Model::ausgabeFile(int i){
 	if (!is_file_exist("c:\\temp1\\")){
 		_mkdir("c:\\temp1\\");
@@ -382,11 +422,11 @@ void Model::ausgabeFile(int i){
 			gotoxy(35, line + i);
 			meinedaten << modelFahrzeug[i].getanzahlRaeder();
 			gotoxy(40, line + i);
-			meinedaten << modelFahrzeug[i].getfarbe();
+			meinedaten << integerToStringFarbe(modelFahrzeug[i].getfarbe());
 			gotoxy(50, line + i);
 			meinedaten << modelFahrzeug[i].getbj();
 			gotoxy(60, line + i);
-			meinedaten << modelFahrzeug[i].getStatus();
+			meinedaten << integerToStringStatus(modelFahrzeug[i].getStatus());
 			gotoxy(70, line + i);
 			meinedaten << modelKunde[modelFahrzeug[i].getKundenIDFromFahrzeuge()-1].getVorname();
 			gotoxy(85, line + i);
@@ -404,11 +444,6 @@ void Model::ausgabeFile(int i){
 		meinedaten.close();
 		cout << "Fehler passiert in Funktion Display\n";
 	}
-
-	
-
-
-
 }
 
 	

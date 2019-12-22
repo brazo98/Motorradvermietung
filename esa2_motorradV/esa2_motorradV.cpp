@@ -1,3 +1,43 @@
+/*
+Author: Toni Mikitsch
+Aufgabe: WS19/20: ESA2 Zweite Einsendeaufgabe 
+(Motorradvermietung)
+ESA2 (Leistungsnachweis) zum vhb-Kurs "C++ Teil2"
+Datum: 04.12.2019
+Erstelldatum 02.12.2019
+Änderungsdatum: 04.12.2019
+Name-Datei: esa2_motorradV.cpp
+Version: 1.0
+*/
+
+/*README
+WS19/20: ESA2: Zweite Einsendeaufgabe (Motorradvermietung)
+ESA2 (Leistungsnachweis) zum vhb-Kurs „C++ Teil2“
+Achten Sie auf termingerechte Abgabe (Upload) der Arbeiten im Kurs
+Bewertungsrelevante Anforderungen:
+Quellcode (.cpp oder .txt)
+[Bitte den Quellcode nicht auf mehrere Dateien verteilen!]
+eine ausführbare Datei (.exe).
+Die ESA muss als Einzelleistung erbracht werden (keine Teamarbeit !)
+Aufgabenstellung:
+Sie sollen ein Programm zur Verwaltung von Motorrädern in C++ realisieren.
+Motorradvermietung
+Sie sind für die Verwaltung von Motorrädern zuständig. Da zurzeit alle Vorgänge in Papierform festgehalten werden, sollen Sie ein Programm zur Motorradverwaltung erstellen.
+Die Mitarbeiterin soll die Möglichkeit haben, die Kunden zu verwalten und Reservierungen der Motorräder vorzunehmen. Der Kunde kann nur jeweils ein Motorrad reservieren. Es gibt insgesamt 4 Motorräder zur Auswahl: „Suzuki Bandit“, „Honda TransAlp“, „BMW F 650 GS“ und „Kawasaki ZZR1400“. Stellen Sie sicher, dass ein Motorrad nicht doppelt reserviert wird. Bei der Reservierung muss der Kunde: Name, Vorname, Adresse (Straße, Nr. PLZ, Ort), Geburtsjahr, Telefonnummer und ob er Führerschein der Klasse A besitzt, angeben. Besitzt er kein Führerschein der Klasse A, so kann kein Motorrad für ihn reserviert werden. Sobald die Übergabe des Motorrads erfolgt ist, wird die Reservierung für diesen Kunden storniert. Der aktuelle Stand von „heute“ soll in die Datei „reservierungen.txt“ geschrieben werden.
+Das Programm soll mindestens folgende Anforderungen erfüllen:
+Verwaltung der Kunden:
+Daten erfassen. Die Erfassung der Daten soll über istream (>>) Operatorüberladung erfolgen.
+Alle Kundendaten ausgeben. Die Ausgabe soll über ostream (<<) Operatorüberladung erfolgen.
+Verwaltung der Reservierungen:
+Reservierung vornehmen
+Motorrad herausgeben (mit der Abfrage des Kundenvor- und nachnamens)
+Dateiverwaltung:
+Der aktuelle Stand der Reservierungen soll in die Datei „reservierungen.txt“ geschrieben werden. Falls die Datei noch nicht existiert soll sie angelegt werden, ansonsten sollen die Daten an das Ende der Datei angehängt werden. Lesen der Daten aus der Datei ist nicht gefordert!
+Die Verwaltung der Kunden soll dynamisch erfolgen. Bei Bedarf sollen entsprechende (Fehler-) Meldungen ausgegeben werden. Achten Sie auf eine angemessene Dokumentation Ihres Programms!
+*/
+
+
+
 // esa2_motorradV.cpp: Hauptprojektdatei.
 
 
@@ -31,16 +71,7 @@ const string BMW = "BMW 650 GS";
 const string KAWASAKI = "Kawasaki ZZR 1400";
 
 
-////Enum für die Farbübermittlung
-//enum class farbe{
-//	blau,
-//	rot,
-//	gelb,
-//	guen,
-//	schwatz,
-//	weiss,
-//	lila
-//};
+
 //
 ////Enum für Fahrzeugauswahl
 //enum class fahrzeugauswahl{
@@ -78,11 +109,12 @@ struct neuFahrzeug{
 
 int main(array<System::String ^> ^args)
 {
+	//Ein paar Hilfsvariablen
 	int auswahlFahrzeugID=0;
 	int auswahlKundenID=0;
 	int sucheKunde=0;
 	char janein='n';
-
+	//Meine Objektinstanzen
 	Model mo;
 	neuKunde nk;
 	neuFahrzeug nf;
@@ -96,7 +128,7 @@ int main(array<System::String ^> ^args)
 		gotoxy(29, 2);  cout << "=====MotorradvermietungTHD=====";
 		gotoxy(29, 3);  cout << "1. Kunde erstellen             ";
 		gotoxy(29, 4);  cout << "2. Reservierung                ";
-		gotoxy(29, 5);  cout << "3. Motorräder Anzeigen         ";
+		gotoxy(29, 5);  cout << "3. Motorraeder Anzeigen         ";
 		gotoxy(29, 6);  cout << "4. Ubergabe Motorrad           ";
 		gotoxy(29, 7);  cout << "5. ----------------            ";
 		gotoxy(29, 8);  cout << "6. Reserviert                  ";
@@ -104,7 +136,7 @@ int main(array<System::String ^> ^args)
 		gotoxy(29, 10); cout << "8. Quit                        ";
 		gotoxy(29, 11); cout << "===============================";
 
-		char menu1; //, menu2, menu3;
+		char menu1; 
 	repeat:
 		gotoxy(29, 13);
 		cout << "Ihre Auswahl: ";
@@ -176,9 +208,6 @@ int main(array<System::String ^> ^args)
 					}
 
 					if(mo.getModelFahrzeug()[sucheKunde].getKundenIDFromFahrzeuge() ==-1 || mo.getModelFahrzeug()[sucheKunde].getKundenIDFromFahrzeuge() ==0 ){
-						/*for(unsigned int i=0; i<mo.getModelFahrzeug().size();i++){
-							if(mo.getModelFahrzeug()[i].getStatus() == 0){
-								if(mo.getModelFahrzeug()[i].getKundenIDFromFahrzeuge() >= 0 && mo.getModelFahrzeug()[i].getKundenIDFromFahrzeuge() <= 3 ){*/
 									system("cls");
 									mo.tableHeader();
 									mo.displayFahrzeuge();
@@ -192,9 +221,7 @@ int main(array<System::String ^> ^args)
 									mo.setLine();
 									
 									break;
-					/*			}
-							}
-						}*/
+				
 					}
 				}
 				system("pause");
@@ -208,7 +235,7 @@ int main(array<System::String ^> ^args)
 				system("pause");
 				mo.setLine();
 				break;
-			case '4':  //--
+			case '4':  //Übergabe--
 				system("cls");
 				mo.setLine();
 				if(!mo.getModelFahrzeug().empty() && (!mo.getModelKunde().empty())){
@@ -220,13 +247,11 @@ int main(array<System::String ^> ^args)
 						
 						}
 					}
-					//mo.tableFooterReserviert(0);
+					
 				}
 				if(!mo.getModelFahrzeug().empty() && (!mo.getModelKunde().empty())){
 					Console::WriteLine("Welches Motorrad wurde uebergeben? Bitte ID eingeben!: ");
 					cin >> auswahlFahrzeugID;
-					//mo.getModelFahrzeug()[auswahlFahrzeugID-1].setKundenID(0);
-					//mo.getModelFahrzeug()[auswahlFahrzeugID-1].setStatus(0);
 					mo.setStatusVonFahrzeugAufNull(auswahlFahrzeugID-1);
 					mo.setKundenIDFahrzeugAufNull(auswahlFahrzeugID-1);
 
@@ -242,7 +267,7 @@ int main(array<System::String ^> ^args)
 							
 							}
 						}
-						//mo.tableFooterReserviert(0);
+						
 					}
 					mo.setLine();
 				}
@@ -254,7 +279,7 @@ int main(array<System::String ^> ^args)
 				system("pause");
 
 				break;
-			case '6': // Komplette Datensätze anzeigen
+			case '6': // Reservierten Datensätze anzeigen
 				system("cls");
 				mo.setLine();
 				if(!mo.getModelFahrzeug().empty() && (!mo.getModelKunde().empty())){
@@ -266,7 +291,7 @@ int main(array<System::String ^> ^args)
 						
 						}
 					}
-					//mo.tableFooterReserviert(0);
+					
 					Console::WriteLine("Wollen Sie die Reservierungen in ein File schreiben: j/n");
 					cin >> janein;
 
@@ -295,11 +320,6 @@ int main(array<System::String ^> ^args)
 				system("pause");
 				break;
 			case '8': //Exit Ausgang aus dem Programm
-				//cout << "Auswahl 8";
-				//delete myalarmHandler;
-				//delete ku;
-				//delete kawa;
-				//delete res;
 				exit(0);
 
 			default:

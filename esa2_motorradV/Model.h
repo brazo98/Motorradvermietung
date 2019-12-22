@@ -25,9 +25,15 @@ enum class farbe{
 	rot,
 	gelb,
 	guen,
-	schwatz,
+	schwartz,
 	weiss,
 	lila
+};
+
+//Enum Status
+enum class translateStatus{
+	frei,
+	reserviert
 };
 
 //Enum für Fahrzeugauswahl
@@ -86,4 +92,10 @@ public:
 
 	//Line wieder retoursetzen
 	void setLine();
+
+	//Umwandeln von Zahlen in Farben
+	string integerToStringFarbe(int color);
+
+	//Umwandeln von Zahlen in Status
+	string integerToStringStatus(int status);
 };
